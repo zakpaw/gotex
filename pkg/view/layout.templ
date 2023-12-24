@@ -14,6 +14,8 @@ templ layout() {
                 crossorigin="anonymous"
             ></script>
 
+            <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
             <script src="https://cdn.tailwindcss.com"></script>
             <script>
                 tailwind.config = {
@@ -23,21 +25,19 @@ templ layout() {
 
         </head>
         <body>
-            <button
-                id="themeToggle"
-                onclick={ themeToggle() }
-                class="absolute top-0 right-0 p-2 m-2"
-            >
-                🌗
-            </button>
-            <div id="themeDiv" class="dark">
-                { children... }
+            <div x-data="{ darkTheme: false }">
+                <button
+                    id="themeToggle"
+                    @click="darkTheme = !darkTheme"
+                    class="absolute top-0 right-0 p-2 m-2"
+                >
+                    🌗
+                </button>
+
+                <div id="themeDiv" :class="darkTheme ? 'dark' : 'light'">
+                    { children... }
+                </div>
             </div>
         </body>
     </html>
-}
-
-script themeToggle() {
-    var themeDiv = document.getElementById("themeDiv");
-    themeDiv.className = themeDiv.className === "dark" ? "light" : "dark";
 }
